@@ -33,6 +33,8 @@ from auth.infrastructure.adapters.user_id_generator_uuid import UserIdGeneratorI
 from auth.presentation.http.adapters.request_manager_cookie import RequestManagerCookie
 from auth.presentation.http.base.cookie_params import CookieParams
 
+from auth.infrastructure.adapters.order_repository_sql import OrderRepositorySql
+from auth.application.interfaces.order_repository import OrderRepository
 
 class SqlaProvider(Provider):
     @provide(scope=Scope.APP)
@@ -52,6 +54,9 @@ class SqlaProvider(Provider):
         async with sessionmaker() as session:
             yield session
 
+    order_repository_sql = provide(
+        OrderRepositorySql, scope=Scope.REQUEST, provides=OrderRepository
+        )
     transaction_manager = provide(
         TransactionManagerImpl, scope=Scope.REQUEST, provides=TransactionManager
     )

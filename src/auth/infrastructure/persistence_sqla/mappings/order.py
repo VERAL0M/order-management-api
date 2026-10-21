@@ -30,6 +30,6 @@ def map_order_table() -> None:
         Order,
         order_table,
         properties={
-            "items": relationship(OrderItem, back_populates="order", lazy="joined",cascade="all, delete-orphan")
+            "items": relationship(OrderItem, back_populates="order", lazy="selectin",cascade="all, delete-orphan")
         }
     )
