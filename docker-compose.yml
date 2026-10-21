@@ -1,6 +1,11 @@
 services:
   backend:
     container_name: backendOrder
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      PYTHONPATH: /app/src
     env_file:
       - ${ENV_FILE:-.env.docker}
     build:

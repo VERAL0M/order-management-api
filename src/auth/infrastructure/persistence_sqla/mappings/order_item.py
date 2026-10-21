@@ -18,7 +18,7 @@ order_item_table = Table(
 )
 
 
-def create_order_item_table() -> None:
+def map_create_order_item_table() -> None:
     mapping_registry.map_imperatively(
         OrderItem,
         order_item_table,

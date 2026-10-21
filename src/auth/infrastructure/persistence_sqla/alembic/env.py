@@ -8,6 +8,10 @@ from auth.infrastructure.persistence_sqla.orm_registry import mapping_registry
 
 from auth.infrastructure.persistence_sqla.mappings.user import User
 from auth.infrastructure.persistence_sqla.mappings.session import Session
+# Import order mappings so their tables are registered in mapping_registry.metadata
+# and included by Alembic autogenerate.
+import auth.infrastructure.persistence_sqla.mappings.order  # noqa: F401
+import auth.infrastructure.persistence_sqla.mappings.order_item  # noqa: F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

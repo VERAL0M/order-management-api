@@ -19,7 +19,7 @@ CancelReason = NewType("CancelReason", str )
 class Order:
     id: OrderId
     user_id: UserId
-    items: tuple[OrderItem, ...]
+    items: list[OrderItem]
     status: OrderStatus
     created_at: CreatedAt
     updated_at: UpdatedAt
@@ -59,7 +59,7 @@ class Order:
 def create_order(
     id: OrderId,
     user_id: UserId,
-    items: tuple[OrderItem, ...],
+    items: list[OrderItem],
 ) -> Order:
 
     now = CreatedAt(datetime.now(timezone.utc))
