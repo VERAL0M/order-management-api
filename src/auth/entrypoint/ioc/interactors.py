@@ -6,7 +6,7 @@ from auth.application.interactors.log_out import LogOutInteractor
 from auth.application.interactors.sign_up import SignUpInteractor
 from auth.application.interactors.user_hello_world import UserHelloWorldInteractor
 from auth.application.interactors.verification import VerificationInteractor
-
+from auth.application.interactors.create_order import CreateOrderInteractor
 
 class InteractorProvider(Provider):
     scope = Scope.REQUEST
@@ -17,3 +17,4 @@ class InteractorProvider(Provider):
     user_hello_world = provide(UserHelloWorldInteractor)
     admin_hello_world = provide(AdminHelloWorldInteractor)
     verification = provide(VerificationInteractor)
+    create_order = provide(CreateOrderInteractor)

@@ -30,11 +30,17 @@ from auth.infrastructure.adapters.session_id_generator_str import SessionIdGener
 from auth.infrastructure.adapters.transaction_manager_sqla import TransactionManagerImpl
 from auth.infrastructure.adapters.user_data_mapper_sqla import UserDataMapperSqla
 from auth.infrastructure.adapters.user_id_generator_uuid import UserIdGeneratorImpl
+
 from auth.presentation.http.adapters.request_manager_cookie import RequestManagerCookie
 from auth.presentation.http.base.cookie_params import CookieParams
 
 from auth.infrastructure.adapters.order_repository_sql import OrderRepositorySql
 from auth.application.interfaces.order_repository import OrderRepository
+from auth.infrastructure.adapters.order_id_generator_uuid import OrderIdGeneratorImpl
+from auth.application.interfaces.order_id_generator import OrderIdGenerator
+from auth.infrastructure.adapters.position_id_generator_uuid import PositionIdGeneratorImpl
+from auth.application.interfaces.position_id_generator import PositionIdGenerator
+
 
 class SqlaProvider(Provider):
     @provide(scope=Scope.APP)
@@ -81,6 +87,14 @@ class IdGeneratorsProvider(Provider):
     user_id_generator = provide(
         UserIdGeneratorImpl, scope=Scope.REQUEST, provides=UserIdGenerator
     )
+    order_id_generator =  provide(
+        OrderIdGeneratorImpl, scope=Scope.REQUEST, provides=OrderIdGenerator)
+
+    position_id_generator = provide(
+      PositionIdGeneratorImpl, scope=Scope.REQUEST, provides=PositionIdGenerator
+    )
+    
+    
 
 
 class AuthProvider(Provider):

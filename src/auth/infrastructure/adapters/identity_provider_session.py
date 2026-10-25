@@ -11,7 +11,7 @@ from auth.domain.user_role import UserRoleEnum
 from auth.entrypoint.config import SessionConfig
 
 
-class IdentityProviderSession(IdentityProvider):
+class IdentityPrvoiderSession(IdentityProvider):
     """
     Повторение кода оправдано фактом:
     обновление срока истечения жизни сессии зависит от сценария.
