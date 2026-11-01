@@ -4,7 +4,7 @@ from uuid import UUID
 
 
 
-from auth.application.errors import OrderCreateError
+from auth.application.errors import AuthenticationError
 from auth.application.interfaces.identity_provider import IdentityProvider
 from auth.application.interfaces.request_manager import RequestManager
 from auth.application.interfaces.session_data_gateway import SessionDataGateway
@@ -28,7 +28,6 @@ from auth.domain.entities.order import (
     )
 
 from auth.application.interfaces.position_id_generator import PositionIdGenerator
-
 from auth.application.interfaces.order_repository import OrderRepository
 
 @dataclass
@@ -58,7 +57,7 @@ class CreateOrderInteractor:
         request_manager: RequestManager,
         transaction_manager: TransactionManager,
         position_id_generator: PositionIdGenerator,
-        ) -> None:
+        ):
 
         self._identity_provider = identity_provider
         self._order_repository = order_repository
@@ -75,17 +74,17 @@ class CreateOrderInteractor:
         is_authenticated: bool = await self._identity_provider.is_authenticated()
 
         if not is_authenticated:
-            raise OrderCreateError("You cannot create an order until you have completed the authentication verification. ")
+            raise AuthenticationError("You cannot create an order until you have completed the authentication verification.")
 
     
-        session_id: SessionId | None =self._request_manager.get_session_id_from_request()
+        session_id: SessionId | None = self._request_manager.get_session_id_from_request()
         if session_id is None:
-            raise OrderCreateError("Session not found")
+            raise AuthenticationError("Session not found")
     
         user_id: UserId | None = await self._session_data_gateway.get_user_id(session_id=session_id)
         
         if user_id is None:
-            raise OrderCreateError("The user ID was not found in the current session.")
+            raise AuthenticationError("The user ID was not found in the current session.")
         
 
         order_id: OrderId = self._order_id_generator()

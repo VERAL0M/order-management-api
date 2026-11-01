@@ -7,6 +7,9 @@ from auth.application.interactors.sign_up import SignUpInteractor
 from auth.application.interactors.user_hello_world import UserHelloWorldInteractor
 from auth.application.interactors.verification import VerificationInteractor
 from auth.application.interactors.create_order import CreateOrderInteractor
+from auth.application.interactors.list_order import StatusFilterOrderInteractor
+from auth.application.interactors.find_order import FindOrderInteractor
+from auth.application.interactors.cancel_order import CancelOrderInteractor
 
 class InteractorProvider(Provider):
     scope = Scope.REQUEST
@@ -18,3 +21,7 @@ class InteractorProvider(Provider):
     admin_hello_world = provide(AdminHelloWorldInteractor)
     verification = provide(VerificationInteractor)
     create_order = provide(CreateOrderInteractor)
+    list_order = provide( StatusFilterOrderInteractor)
+    find_order = provide(FindOrderInteractor)
+    cancel_order = provide(CancelOrderInteractor)
+

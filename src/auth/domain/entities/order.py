@@ -49,7 +49,7 @@ class Order:
         if not reason.strip():
             raise OrderStateError("The cancellation reason cannot be an empty string.")
         
-        self.status = OrderStatus.CANCELLED
+        self.status = OrderStatus.CANCELED
         self.cancel_reason = reason
         self.updated_at = UpdatedAt(datetime.now(timezone.utc))
     

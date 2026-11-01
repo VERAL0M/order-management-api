@@ -14,6 +14,10 @@ from auth.application.errors import (
     LogOutError,
     SignUpError,
     VerificationError,
+    OrderCancelError,
+    OrderFindError,
+    OrderRequestError,
+
 )
 from auth.domain.errors import AccessControlError, Error
 
@@ -57,4 +61,13 @@ def init_error_handlers(app: FastAPI) -> None:
     )
     app.add_exception_handler(
         VerificationError, partial(validate, status=code.HTTP_409_CONFLICT)
+    )
+    app.add_exception_handler(
+        OrderRequestError, partial(validate, status=code.HTTP_400_BAD_REQUEST)
+    )
+    app.add_exception_handler(
+        OrderCancelError, partial(validate, status=code.HTTP_409_CONFLICT)
+    )   
+    app.add_exception_handler(
+        OrderFindError, partial(validate, status=code.HTTP_404_NOT_FOUND)    
     )
